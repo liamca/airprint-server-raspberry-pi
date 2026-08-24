@@ -494,9 +494,12 @@ survives reboots with no further intervention.
   as sensitive until first boot completes.
 - `write-cloud-init.py` takes secrets from the environment rather than `argv`, since
   command lines are world-readable through `ps`.
-- If you enable passwordless `sudo` for convenience, remember that anyone with shell
-  access as that user gets root without re-authenticating. Undo with
-  `sudo rm /etc/sudoers.d/010_<user>-nopasswd`.
+- The generated `user-data` grants the new account **passwordless `sudo`**, and SSH
+  password authentication is enabled. Convenient for a headless appliance, but it
+  means anyone with shell access as that user gets root without re-authenticating.
+  Undo with `sudo rm /etc/sudoers.d/90-cloud-init-users`.
+- `find-printer.sh` and `setup.sh` fall back to sweeping your local `/24` for open
+  port 9100. That's an unsolicited scan of your own LAN — pass `--uri` to skip it.
 
 ## Tested configuration
 
@@ -508,3 +511,13 @@ survives reboots with no further intervention.
 | brlaser | 6.2.7 (`drv:///brlaser.drv/br2140.ppd`) |
 | Printer | Brother HL-2170W over USB |
 | Clients | iPadOS (AirPrint), macOS (IPP Everywhere) |
+
+---
+
+## License
+
+[MIT](LICENSE).
+
+AirPrint is a trademark of Apple Inc.; Mopria is a trademark of the Mopria Alliance;
+Brother is a trademark of Brother Industries, Ltd. This is an unaffiliated community
+project and is not endorsed by any of them.

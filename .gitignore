@@ -13,3 +13,9 @@
 *.img.xz
 *.img.xz.sha256
 rpi-images/
+
+# Generated provisioning files - contain a password hash and a plaintext Wi-Fi key
+user-data
+network-config
+meta-data
+custom.toml
